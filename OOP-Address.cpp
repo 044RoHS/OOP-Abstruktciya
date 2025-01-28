@@ -1,8 +1,6 @@
 ﻿#include <iostream>
 #include <fstream>
 
-
-
 class Address
 {
 private:
@@ -10,7 +8,6 @@ private:
     std::string Streets;
     int NumberHouse;
     int NumberApartment;
-    
 public:
     Address(std::string Citis, std::string Street, int House, int Apartment)
     {
@@ -21,19 +18,11 @@ public:
 
 
     }
-    Address() {}
-    
-    void getOutputAdderss(std::ofstream& foul) const
+    std::string getOutputAdderss()
     {
-        
-        foul << Cities << " " << Streets << " " << NumberHouse << " " << NumberApartment << std::endl;
-       
-        
-       
        
     
     }
-    
 };
 
 
@@ -41,59 +30,47 @@ public:
     int main()
     {
 
-        setlocale(LC_ALL, "Ru");
-        
+        setlocale(LC_ALL, "RU");
+        std::string city;
+        std::string street;
+        int HouseNumber;
+        int ApartmentNumbre;
         int CountAddress;
-        std::ifstream fil("in.txt");
-        std::ofstream foul("out1.txt");
-        if (!foul.is_open()) 
-        {
-            std::cout << " Не получилось открыть файл out.txt" << std::endl;
-        }
+  
        
+        std::ifstream fil("in.txt");
+        std::ofstream fout("out.txt");
+        int* array = new int{};
+        if (!fout.is_open())
+        {
+            std::cout << "Не получилось открыть файл out.txt" << std::endl;
+
+        }
         if (!fil.is_open())
         {
             std::cout << "Не получилось открыть файл in.txt" << std::endl;
 
-        } 
+        }
         fil >> CountAddress;
-        foul << CountAddress << std::endl;
-        Address* array = new Address[CountAddress ]; 
-        
-        for (int i = 0; i < CountAddress; ++i )
+ 
+        for (int i = 0; i < CountAddress; i++)
         {
-            std::string city;
-            std::string street;
-            int HouseNumber;
-            int ApartmentNumbre;
             fil >> city >> street >> HouseNumber >> ApartmentNumbre;
-            Address adress(city, street, HouseNumber, ApartmentNumbre);
-            array[i] = Address(city, street, HouseNumber, ApartmentNumbre);
+            Address Adres(city, street, HouseNumber, ApartmentNumbre);
+        
             
         }
-        std::reverse(array, array + CountAddress);
-        for (int i = 0; i < CountAddress; ++i) 
-        {
-            array[i].getOutputAdderss(foul);
-        }
 
-        
-        
-        
-          
-      
-        
-       
-       
-       
-       
-            
-       
-
-        
-        
         delete[] array;
+
+
+
         fil.close();
+        fout.close();
+
+
+
+
 
     }
 
